@@ -77,7 +77,7 @@ Fonte: o editor e o terminal usam a Cascadia Code / Cascadia Mono, que já vêm 
 
 Os três entram no `restaurar.ps1 -Todas`; sem `-Todas`, rode cada um à parte.
 
-- **`icone/icone-cinza.ps1`:** troca o ícone azul do VS Code por um cinza (gerado a partir do ícone instalado) nos atalhos do menu Iniciar, da área de trabalho e da barra de tarefas (o da barra de título fica cinza pelo `cursor-like.css`); `-Remover` volta ao azul. Depois de atualizar o VS Code, rodar de novo se o ícone voltar ao azul.
+- **`icone/icone-cinza.ps1`:** troca o ícone azul do VS Code pelo `icone/code-cinza-escuro.ico` (logo cinza-claro num quadrado escuro) nos atalhos do menu Iniciar, da área de trabalho e da barra de tarefas (o da barra de título fica cinza pelo `cursor-like.css`); `-Claro` usa o logo cinza-claro sem fundo, gerado a partir do ícone instalado; `-Remover` volta ao azul. Depois de atualizar o VS Code, rodar de novo se o ícone voltar ao azul.
 - **`opcional/copiar-arroba/`:** `Ctrl+C` num arquivo do explorador também copia `@caminho` para colar no chat do Claude Code; liga e desliga pelo botão `@` no rodapé. Instalar como no `README.md` dela.
 - **`opcional/php-sem-tag/`:** extensão local que colore como PHP arquivos sem `<?php` (eventos do Scriptcase, por exemplo). Instalar como no `README.md` dela; a associação dos arquivos é sempre por projeto.
 

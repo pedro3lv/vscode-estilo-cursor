@@ -1,9 +1,12 @@
 ﻿# Ícone do VS Code em cinza (combina com o tema escuro sem cor).
-# Gera %USERPROFILE%\.vscode\code-cinza.ico a partir do ícone do VS Code instalado e o põe nos
-# atalhos do menu Iniciar, da área de trabalho e da barra de tarefas.
-#   powershell -ExecutionPolicy Bypass -File .\icone\icone-cinza.ps1            # aplica
+# Padrão: copia icone\code-cinza-escuro.ico (logo cinza-claro em quadrado escuro) para
+# %USERPROFILE%\.vscode\ e o põe nos atalhos do menu Iniciar, da área de trabalho e da barra de tarefas.
+# -Claro: em vez disso, gera %USERPROFILE%\.vscode\code-cinza.ico (logo cinza-claro sem fundo) a
+# partir do ícone do VS Code instalado.
+#   powershell -ExecutionPolicy Bypass -File .\icone\icone-cinza.ps1            # aplica o escuro
+#   powershell -ExecutionPolicy Bypass -File .\icone\icone-cinza.ps1 -Claro     # aplica o claro
 #   powershell -ExecutionPolicy Bypass -File .\icone\icone-cinza.ps1 -Remover   # volta ao azul
-param([switch]$Remover)
+param([switch]$Remover, [switch]$Claro)
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.Drawing
 
@@ -19,7 +22,16 @@ $atalhos = @(
   (Join-Path ([Environment]::GetFolderPath('Desktop')) 'Visual Studio Code.lnk')
 ) | Where-Object { Test-Path -LiteralPath $_ }
 
-if (-not $Remover) {
+if (-not $Remover -and -not $Claro) {
+  $escuro = Join-Path $PSScriptRoot 'code-cinza-escuro.ico'
+  if (-not (Test-Path -LiteralPath $escuro)) { throw "Não encontrado: $escuro" }
+  $saida = Join-Path $env:USERPROFILE '.vscode\code-cinza-escuro.ico'
+  New-Item -ItemType Directory -Force -Path (Split-Path $saida) | Out-Null
+  Copy-Item -LiteralPath $escuro -Destination $saida -Force
+  Write-Host "Ícone copiado: $saida"
+}
+
+if ($Claro -and -not $Remover) {
   if (-not $ico) { throw 'code.ico do VS Code não encontrado' }
   New-Item -ItemType Directory -Force -Path (Split-Path $saida) | Out-Null
   $tamanhos = 16, 24, 32, 48, 64, 128, 256
